@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 expected_param_nbr=2
 
