@@ -15,7 +15,7 @@ int main (int argc, char *argv[]) {
 
 	syslog(LOG_DEBUG,"writing %s to %s", argv[2],argv[1]);
 
-	FILE * file = fopen(argv[1],"w");
+	FILE * file = fopen(argv[1],"w+");
 
 	if (!file){
 		syslog(LOG_DEBUG, "file not found");
@@ -24,12 +24,13 @@ int main (int argc, char *argv[]) {
 
 
 	size_t ret = fwrite(argv[2],1,strlen(argv[2]),file);
-	printf("chars written are %ld",ret);
+	printf("chars written are %ld\n",ret);
 	if (ret != strlen(argv[2])){
 		syslog(LOG_ERR, "FILE WRITE FAILED");
 		fclose(file);
 		return 1;
 	}
+	fflush(file);
 
 	fclose(file);
 
