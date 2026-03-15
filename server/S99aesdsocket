@@ -1,0 +1,21 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo "Starting myservice..."
+    start-stop-daemon -S -b -m -p /var/run/aesdsocket.pid -x /usr/bin/aesdsocket
+    ;;
+  stop)
+    echo "Stopping myservice..."
+    start-stop-daemon -K -p /var/run/aesdsocket.pid
+    rm -f /var/run/myservice.pid
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
